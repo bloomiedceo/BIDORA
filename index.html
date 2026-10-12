@@ -1,0 +1,436 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080d18">
+<title>BIDORA | Bid Smart. Win Big.</title>
+<style>
+:root {
+  --bg:#080d18;
+  --card:#101b2c;
+  --line:#253752;
+  --blue:#246bff;
+  --cyan:#45d7ff;
+  --text:#f3f7ff;
+  --muted:#91a2bd;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:Inter,system-ui,-apple-system,sans-serif
+}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit}
+.wrap{width:min(1100px,calc(100% - 32px));margin:auto}
+header{background:#080d18ed;border-bottom:1px solid var(--line);
+position:sticky;top:0;z-index:5;backdrop-filter:blur(15px)}
+nav{height:70px;display:flex;align-items:center;
+justify-content:space-between;gap:15px}
+.logo{font-size:26px;font-weight:950;letter-spacing:-1px}
+.logo span{color:var(--cyan)}
+.navlinks{display:flex;gap:20px;font-size:13px;color:#c1cde0}
+.btn{border:0;border-radius:10px;padding:12px 16px;
+background:linear-gradient(135deg,#287aff,#1746c4);
+color:white;font-weight:800;cursor:pointer}
+.btn:hover{filter:brightness(1.15)}
+.secondary{background:#14243b;border:1px solid var(--line)}
+.hero{background:radial-gradient(ellipse at 80% 20%,#153e82,#080d18 65%);
+border-bottom:1px solid var(--line)}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;
+gap:30px;align-items:center;padding:70px 0}
+.kicker{color:var(--cyan);font-size:11px;font-weight:900;
+letter-spacing:2px;text-transform:uppercase}
+h1{font-size:clamp(44px,6vw,70px);line-height:1;
+letter-spacing:-3px;margin:20px 0}
+h1 span{color:var(--cyan)}
+p{line-height:1.7}
+.hero p,.muted{color:var(--muted)}
+.hero-art img{width:100%;height:290px;object-fit:cover;
+border-radius:20px;border:1px solid #31568a;
+box-shadow:0 20px 60px #0008}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.notice{color:#91a2bd;font-size:11px;margin-top:18px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);
+gap:12px;margin-top:-22px;position:relative}
+.stat,.card,.form-card,.step,.history-wrap{
+background:var(--card);border:1px solid var(--line);
+border-radius:15px}
+.stat{padding:18px}
+.stat strong{font-size:23px;display:block}
+.stat small{color:var(--muted)}
+section{padding:65px 0}
+.heading{display:flex;justify-content:space-between;
+align-items:end;gap:15px;margin-bottom:24px}
+h2{font-size:clamp(26px,4vw,36px);letter-spacing:-1px;margin:8px 0}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.filter{border:1px solid var(--line);background:var(--card);
+color:var(--muted);border-radius:30px;padding:9px 14px;cursor:pointer}
+.filter.active{background:#163c7a;border-color:var(--blue);color:white}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}
+.card{overflow:hidden;transition:.2s}
+.card:hover{transform:translateY(-3px);border-color:#3976ce}
+.product-img{height:190px;position:relative;background:#15243b}
+.product-img img{width:100%;height:100%;object-fit:cover}
+.tag{position:absolute;top:12px;left:12px;background:#143365;
+border:1px solid #3275ce;padding:6px 9px;border-radius:30px;
+font-size:10px;color:#a6dcff}
+.card-body{padding:16px}
+.card h3{font-size:17px;margin:7px 0}
+.category{font-size:10px;color:var(--cyan);text-transform:uppercase;
+letter-spacing:1.5px;font-weight:900}
+.timer{background:#09111f;border:1px solid var(--line);
+border-radius:9px;padding:11px;margin:14px 0;
+display:flex;justify-content:space-between;gap:10px;font-size:12px}
+.timer strong{color:var(--cyan)}
+.bidrow{display:flex;justify-content:space-between;
+align-items:center;gap:8px}
+.price{font-size:23px;font-weight:900}
+.small{font-size:11px;color:var(--muted)}
+.bidrow .btn{padding:10px;font-size:12px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.step{padding:22px}
+.step h3{margin-bottom:8px}
+.step p{font-size:13px;color:var(--muted)}
+.form-card{padding:23px}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field label{display:block;font-size:12px;margin-bottom:7px;color:#b7c6df}
+.field input,.field select,.field textarea{
+width:100%;padding:12px;background:#09111f;color:white;
+border:1px solid var(--line);border-radius:9px;outline:none}
+.field input:focus,.field select:focus,.field textarea:focus{
+border-color:var(--cyan)}
+.full{grid-column:1/-1}
+table{width:100%;border-collapse:collapse;min-width:470px}
+th,td{text-align:left;padding:13px;border-bottom:1px solid var(--line);
+font-size:12px}
+th{color:var(--muted);text-transform:uppercase;font-size:10px}
+.history-wrap{overflow:auto}
+footer{border-top:1px solid var(--line);padding:32px 0}
+footer p{color:var(--muted);font-size:12px}
+.modal{display:none;position:fixed;inset:0;background:#000c;
+z-index:20;align-items:center;justify-content:center;padding:16px}
+.modal.open{display:flex}
+.modalbox{width:min(420px,100%);background:var(--card);
+border:1px solid #31527c;border-radius:18px;padding:24px}
+.modalbox h2{font-size:25px}
+.modalbox input{width:100%;padding:12px;background:#080d18;
+border:1px solid var(--line);border-radius:9px;color:white}
+.modal-actions{display:flex;gap:10px;margin-top:15px}
+.modal-actions button{flex:1}
+.toast{position:fixed;bottom:20px;left:50%;
+transform:translate(-50%,100px);background:#e8f5ff;color:#08101c;
+padding:13px 18px;border-radius:30px;font-size:12px;
+font-weight:800;transition:.25s;z-index:30}
+.toast.show{transform:translate(-50%,0)}
+@media(max-width:800px){
+ .navlinks{display:none}.hero-grid{grid-template-columns:1fr}
+ .hero-art img{height:240px}.grid{grid-template-columns:repeat(2,1fr)}
+ .steps{grid-template-columns:1fr}
+}
+@media(max-width:520px){
+ .hero-grid{padding:48px 0}.grid{grid-template-columns:1fr}
+ .stats{gap:6px}.stat{padding:12px}.stat strong{font-size:18px}
+ .stat small{font-size:10px}.formgrid{grid-template-columns:1fr}
+ .full{grid-column:auto}.heading{align-items:start;flex-direction:column}
+ section{padding:48px 0}
+}
+</style>
+</head>
+<body>
+<header>
+<div class="wrap">
+<nav>
+<a class="logo" href="#">BI<span>D</span>ORA.</a>
+<div class="navlinks">
+<a href="#auctions">Auctions</a>
+<a href="#how">How it works</a>
+<a href="#sell">Sell an item</a>
+<a href="#history">Bid history</a>
+</div>
+<a class="btn" href="#auctions">Explore ↗</a>
+</nav>
+</div>
+</header>
+
+<main>
+<div class="hero">
+<div class="wrap hero-grid">
+<div>
+<div class="kicker">✦ The auction floor</div>
+<h1>Big finds.<br><span>Bold bids.</span></h1>
+<p>Discover tech, fashion, collectibles and unique finds.
+Watch the clock. Make your move. Find your next favorite.</p>
+<div class="actions">
+<a class="btn" href="#auctions">Explore auctions ↗</a>
+<a class="btn secondary" href="#sell">List an item +</a>
+</div>
+<div class="notice">DEMO MODE · No real money is collected.</div>
+</div>
+<div class="hero-art">
+<img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1000&q=85"
+alt="Luxury watch">
+</div>
+</div>
+</div>
+
+<div class="wrap stats">
+<div class="stat"><strong id="total">6</strong><small>Sample listings</small></div>
+<div class="stat"><strong>24/7</strong><small>Countdown display</small></div>
+<div class="stat"><strong>$0</strong><small>Real money used</small></div>
+</div>
+
+<section id="auctions">
+<div class="wrap">
+<div class="heading">
+<div><div class="kicker">Discover something special</div>
+<h2>Explore auctions.</h2></div>
+<div class="muted" id="count">6 items</div>
+</div>
+<div class="filters">
+<button class="filter active" data-cat="All">All</button>
+<button class="filter" data-cat="Tech">Tech</button>
+<button class="filter" data-cat="Fashion">Fashion</button>
+<button class="filter" data-cat="Collectibles">Collectibles</button>
+<button class="filter" data-cat="Home">Home</button>
+</div>
+<div class="grid" id="items"></div>
+</div>
+</section>
+
+<section id="how" style="background:#0b1220;border-block:1px solid #1c2b42">
+<div class="wrap">
+<div class="kicker">Simple by design</div>
+<h2>How BIDORA works.</h2>
+<div class="steps">
+<div class="step"><div class="kicker">STEP 01</div><h3>Find your item</h3>
+<p>Browse listings and check each current bid and countdown.</p></div>
+<div class="step"><div class="kicker">STEP 02</div><h3>Place a bid</h3>
+<p>Enter an amount at least $1 above the current demo bid.</p></div>
+<div class="step"><div class="kicker">STEP 03</div><h3>Track your activity</h3>
+<p>Review your browser-local bid history and watchlist.</p></div>
+</div>
+</div>
+</section>
+
+<section id="sell">
+<div class="wrap">
+<div class="kicker">Your turn to sell</div>
+<h2>List something worth bidding on.</h2>
+<p class="muted">Listings created here are only visible in this browser session.</p>
+<div class="form-card">
+<form id="listingForm" class="formgrid">
+<div class="field"><label for="name">Item name *</label>
+<input id="name" required maxlength="70" placeholder="e.g. Retro game console"></div>
+<div class="field"><label for="cat">Category *</label>
+<select id="cat"><option>Tech</option><option>Fashion</option>
+<option>Collectibles</option><option>Home</option></select></div>
+<div class="field"><label for="starting">Starting bid (USD) *</label>
+<input id="starting" type="number" min="1" max="1000000" required></div>
+<div class="field"><label for="duration">Auction duration</label>
+<select id="duration"><option value="3600000">1 hour</option>
+<option value="86400000" selected>24 hours</option>
+<option value="259200000">3 days</option></select></div>
+<div class="field full"><label for="description">Description</label>
+<textarea id="description" rows="3" maxlength="300"
+placeholder="Describe your item"></textarea></div>
+<div class="full"><button class="btn" type="submit">Create demo listing +</button></div>
+</form>
+</div>
+<p class="notice">Prototype only: do not enter real personal or payment information.</p>
+</div>
+</section>
+
+<section id="history">
+<div class="wrap">
+<div class="heading"><div><div class="kicker">Your activity</div>
+<h2>Bid history.</h2></div>
+<button class="btn secondary" id="clear">Clear history</button></div>
+<div class="history-wrap"><table>
+<thead><tr><th>Item</th><th>Your bid</th><th>Time</th></tr></thead>
+<tbody id="history"><tr><td colspan="3">No bids yet.</td></tr></tbody>
+</table></div>
+</div>
+</section>
+</main>
+
+<footer><div class="wrap">
+<a class="logo" href="#">BI<span>D</span>ORA.</a>
+<p>Bid smart. Win big.</p>
+<p><strong>DEMO ONLY:</strong> Listings, bids and history are illustrative.
+No real payments, user accounts, payouts or shared live auctions are connected.
+Do not use this demo to buy or sell goods.</p>
+</div></footer>
+
+<div class="modal" id="modal">
+<div class="modalbox">
+<button class="btn secondary" id="close" style="float:right">×</button>
+<div class="kicker">Demo bidding</div>
+<h2 id="bidName">Place your bid</h2>
+<p class="muted" id="bidInfo">No money will be charged.</p>
+<div class="price" id="current"></div>
+<label for="amount">Your bid in USD</label>
+<input id="amount" type="number" min="1" step="1">
+<p class="muted" id="minimum"></p>
+<div class="modal-actions">
+<button class="btn secondary" id="cancel">Cancel</button>
+<button class="btn" id="confirm">Place demo bid</button>
+</div>
+</div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const products=[
+ {id:1,name:"Studio Wireless Headphones",cat:"Tech",bid:185,bids:12,
+ end:Date.now()+2300000,tag:"Trending",
+ img:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80"},
+ {id:2,name:"Minimalist Chronograph",cat:"Fashion",bid:420,bids:8,
+ end:Date.now()+12500000,tag:"Featured",
+ img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80"},
+ {id:3,name:"Limited Sneaker Drop",cat:"Fashion",bid:235,bids:19,
+ end:Date.now()+28800000,tag:"Popular",
+ img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80"},
+ {id:4,name:"Retro Gaming Controller",cat:"Tech",bid:78,bids:5,
+ end:Date.now()+54000000,tag:"New",
+ img:"https://images.unsplash.com/photo-1600080972464-8e5f35f63d08?auto=format&fit=crop&w=800&q=80"},
+ {id:5,name:"Collector Vinyl Record",cat:"Collectibles",bid:64,bids:7,
+ end:Date.now()+79200000,tag:"Collector's pick",
+ img:"https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&w=800&q=80"},
+ {id:6,name:"Designer Desk Lamp",cat:"Home",bid:112,bids:4,
+ end:Date.now()+104400000,tag:"Design",
+ img:"https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=800&q=80"}
+];
+let category="All",selected=null,history=[],watchlist=new Set();
+const money=n=>new Intl.NumberFormat("en-US",
+ {style:"currency",currency:"USD",maximumFractionDigits:0}).format(n);
+const safe=s=>String(s).replace(/[&<>"']/g,c=>({
+ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+}[c]));
+function remaining(end){
+ let s=Math.max(0,Math.floor((end-Date.now())/1000));
+ if(!s)return "Ended";
+ let d=Math.floor(s/86400);s%=86400;
+ let h=Math.floor(s/3600);s%=3600;
+ let m=Math.floor(s/60);s%=60;
+ return d?`${d}d ${h}h ${m}m`:
+ `${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+}
+function render(){
+ let list=products.filter(p=>category==="All"||p.cat===category);
+ document.getElementById("count").textContent=list.length+" items";
+ document.getElementById("total").textContent=products.length;
+ document.getElementById("items").innerHTML=list.map(p=>`
+ <article class="card">
+ <div class="product-img">
+ <img src="${p.img}" alt="${safe(p.name)}" loading="lazy">
+ <span class="tag">${safe(p.tag||p.cat)}</span>
+ </div>
+ <div class="card-body">
+ <div class="category">${safe(p.cat)}</div>
+ <h3>${safe(p.name)}</h3>
+ <div class="small">Sample marketplace listing</div>
+ <div class="timer"><span>TIME LEFT</span>
+ <strong data-timer="${p.id}">${remaining(p.end)}</strong></div>
+ <div class="bidrow"><div><div class="small">CURRENT BID</div>
+ <div class="price">${money(p.bid)}</div>
+ <div class="small">${p.bids} bids</div></div>
+ <button class="btn" onclick="openBid(${p.id})"
+ ${p.end<=Date.now()?"disabled":""}>
+ ${p.end<=Date.now()?"Ended":"Bid ↗"}</button></div>
+ <p><button class="filter" onclick="toggleWatch(${p.id})">
+ ${watchlist.has(p.id)?"♥ Saved":"♡ Watch"}</button></p>
+ </div></article>`).join("")||
+ '<p class="muted">No items in this category yet.</p>';
+}
+function notify(s){
+ const t=document.getElementById("toast");t.textContent=s;
+ t.classList.add("show");clearTimeout(notify.timer);
+ notify.timer=setTimeout(()=>t.classList.remove("show"),2600);
+}
+function toggleWatch(id){
+ watchlist.has(id)?watchlist.delete(id):watchlist.add(id);
+ render();notify(watchlist.has(id)?"Saved locally":"Removed from watchlist");
+}
+document.querySelectorAll("[data-cat]").forEach(b=>b.onclick=()=>{
+ category=b.dataset.cat;
+ document.querySelectorAll("[data-cat]").forEach(x=>
+ x.classList.toggle("active",x===b));
+ render();
+});
+function openBid(id){
+ selected=products.find(p=>p.id===id);
+ if(!selected||selected.end<=Date.now()){notify("Auction ended.");return}
+ document.getElementById("bidName").textContent=selected.name;
+ document.getElementById("bidInfo").textContent=
+ "Current sample bid: "+selected.bids;
+ document.getElementById("current").textContent=money(selected.bid);
+ document.getElementById("amount").min=selected.bid+1;
+ document.getElementById("amount").value=selected.bid+1;
+ document.getElementById("minimum").textContent=
+ "Minimum next bid: "+money(selected.bid+1);
+ document.getElementById("modal").classList.add("open");
+}
+function closeBid(){document.getElementById("modal").classList.remove("open")}
+document.getElementById("close").onclick=closeBid;
+document.getElementById("cancel").onclick=closeBid;
+document.getElementById("modal").onclick=e=>{
+ if(e.target.id==="modal")closeBid();
+};
+document.getElementById("confirm").onclick=()=>{
+ if(!selected)return;
+ const p=products.find(x=>x.id===selected.id);
+ const amount=Number(document.getElementById("amount").value);
+ if(p.end<=Date.now()){closeBid();render();notify("Auction ended.");return}
+ if(!Number.isSafeInteger(amount)||amount<p.bid+1){
+ notify("Enter at least "+money(p.bid+1));return;
+ }
+ p.bid=amount;p.bids++;
+ history.push({name:p.name,amount,time:new Date().toLocaleString()});
+ render();renderHistory();closeBid();
+ notify("Demo bid placed. No money was charged.");
+};
+function renderHistory(){
+ document.getElementById("history").innerHTML=history.length?
+ history.slice().reverse().map(h=>`<tr><td>${safe(h.name)}</td>
+ <td>${money(h.amount)}</td><td>${safe(h.time)}</td></tr>`).join(""):
+ '<tr><td colspan="3">No bids yet.</td></tr>';
+}
+document.getElementById("clear").onclick=()=>{
+ history=[];renderHistory();notify("History cleared.");
+};
+document.getElementById("listingForm").onsubmit=e=>{
+ e.preventDefault();
+ const name=document.getElementById("name").value.trim();
+ const bid=Number(document.getElementById("starting").value);
+ if(!name||!Number.isSafeInteger(bid)||bid<1||bid>1000000){
+ notify("Check your item name and starting bid.");return;
+ }
+ products.unshift({
+ id:Date.now(),name,cat:document.getElementById("cat").value,
+ bid,bids:0,end:Date.now()+Number(document.getElementById("duration").value),
+ tag:"Demo listing",
+ img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80"
+ });
+ category="All";
+ document.querySelectorAll("[data-cat]").forEach(x=>
+ x.classList.toggle("active",x.dataset.cat==="All"));
+ render();e.target.reset();
+ document.getElementById("auctions").scrollIntoView({behavior:"smooth"});
+ notify("Demo listing created in this browser.");
+};
+function tick(){
+ let ended=false;
+ document.querySelectorAll("[data-timer]").forEach(el=>{
+ const p=products.find(x=>x.id===Number(el.dataset.timer));
+ if(p){const was=el.textContent;el.textContent=remaining(p.end);
+ if(was!=="Ended"&&el.textContent==="Ended")ended=true;}
+ });
+ if(ended)render();
+}
+render();renderHistory();setInterval(tick,1000);
+</script>
+</body>
+</html>
